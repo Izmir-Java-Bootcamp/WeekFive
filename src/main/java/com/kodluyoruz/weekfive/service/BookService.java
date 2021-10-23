@@ -20,10 +20,14 @@ public class BookService {
     }
 
     private Book getBook(int id) {
-        return repository.findById(id).orElseThrow(() -> new NotFoundException("User not found!"));
+        return repository.findById(id).orElseThrow(() -> new NotFoundException("Book not found!"));
     }
 
     protected void updateAvailability(int id, boolean availability) {
         repository.setAvailability(id, availability);
+    }
+
+    public void removeBook(int id) {
+        repository.deleteById(id);
     }
 }

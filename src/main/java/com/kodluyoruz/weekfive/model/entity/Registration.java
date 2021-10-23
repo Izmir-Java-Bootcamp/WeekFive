@@ -1,10 +1,20 @@
 package com.kodluyoruz.weekfive.model.entity;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.experimental.SuperBuilder;
+
 import javax.persistence.*;
 import java.util.Date;
 
 @Entity
 @Table(name = "registrations")
+@Data
+@SuperBuilder
+@AllArgsConstructor
+@NoArgsConstructor
 public class Registration extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

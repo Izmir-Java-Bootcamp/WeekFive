@@ -37,14 +37,14 @@ public class RegistrationService {
 
     private void validateBook(RegistrationRequest request) {
         BookDto bookDto = bookService.getBookDto(request.getBookId());
-        if (!bookDto.isAvailable()) {
+        if (!bookDto.isAvailable()) { //false true
             throw new BusinessException("Book all ready registered!");
         }
     }
 
     private void validateUser(RegistrationRequest request) {
         UserDto userDto = userService.getUserDto(request.getUserId());
-        if (userDto.getRegisteredBookCount() >= 3) {
+        if (userDto.getRegisteredBookCount() >= 3) { //0 2 3 4 10
             throw new BusinessException("User registration limit is reached!");
         }
     }
