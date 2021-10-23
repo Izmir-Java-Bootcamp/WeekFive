@@ -23,4 +23,8 @@ public class UserService {
         return repository.findById(id)
                 .orElseThrow(() -> new NotFoundException("User not found!"));
     }
+
+    protected void incrementRegistrationsCount(int id) {
+        repository.incrementRegisteredBookCount(id);
+    }
 }
