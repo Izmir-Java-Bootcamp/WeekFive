@@ -25,7 +25,7 @@ import java.util.Calendar;
 import java.util.Date;
 
 import static org.mockito.ArgumentMatchers.*;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 public class RegistrationServiceTest {
@@ -90,6 +90,9 @@ public class RegistrationServiceTest {
         //Then
         Assertions.assertThrows(BusinessException.class,
                 () -> sut.register(request));
+        verify(repository,never()).save(any(Registration.class));
+        verify(bookService,never()).updateAvailability(anyInt(),anyBoolean());
+        verify(userService,never()).incrementRegistrationsCount(anyInt());
     }
 
     @Test
@@ -118,8 +121,10 @@ public class RegistrationServiceTest {
         Assertions.assertEquals(1, captorValue.getUserId());
         Assertions.assertEquals(1, captorValue.getBookId());
         Assertions.assertNull(captorValue.getId());
-//        Assertions.assertEquals(expectedExpiryDate, captorValue.getExpiryDate());
         Assertions.assertEquals(DateUtils.round(expectedExpiryDate, Calendar.SECOND),
                 DateUtils.round(captorValue.getExpiryDate(), Calendar.SECOND));
+
+        verify(bookService).updateAvailability(eq(1),eq(false));
+        verify(userService).incrementRegistrationsCount(eq(1));
     }
 }
